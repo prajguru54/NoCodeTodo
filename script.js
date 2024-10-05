@@ -1,3 +1,4 @@
+const BACKEND_PORT = 8003; // Define the backend port as a constant
 const newTodoInput = document.getElementById('newTodo');
 const addTodoButton = document.getElementById('addTodo');
 const todoList = document.getElementById('todoList');
@@ -6,7 +7,7 @@ async function addTodo() {
   const todoText = newTodoInput.value.trim();
   if (todoText !== '') {
     try {
-      const response = await fetch('/todos/', {
+      const response = await fetch(`http://localhost:${BACKEND_PORT}/todos/`, { // Use the constant here
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -27,7 +28,7 @@ async function addTodo() {
 
 async function deleteTodo(id) {
     try {
-        const response = await fetch(`/todos/${id}`, {
+        const response = await fetch(`http://localhost:${BACKEND_PORT}/todos/${id}`, { // Use the constant here
             method: 'DELETE',
         });
         if (!response.ok) {
@@ -46,7 +47,7 @@ async function editTodo(id) {
     const newText = prompt("Edit todo:", todoText);
     if (newText !== null && newText.trim() !== "") {
         try {
-            const response = await fetch(`/todos/${id}`, {
+            const response = await fetch(`http://localhost:${BACKEND_PORT}/todos/${id}`, { // Use the constant here
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -67,7 +68,7 @@ async function toggleComplete(id) {
     try {
         const todoItem = document.getElementById(`todo-${id}`);
         const isCompleted = todoItem.classList.contains('completed');
-        const response = await fetch(`/todos/${id}`, {
+        const response = await fetch(`http://localhost:${BACKEND_PORT}/todos/${id}`, { // Use the constant here
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -85,7 +86,7 @@ async function toggleComplete(id) {
 
 async function loadTodoList() {
     try {
-        const response = await fetch('/todos/');
+        const response = await fetch(`http://localhost:${BACKEND_PORT}/todos/`); // Use the constant here
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
