@@ -61,3 +61,15 @@
 
 # 2024-10-05 12:42:55.669873
 +yes
+
+# 2024-10-05 12:47:13.206040
++move the front end files to a new folder called 'frontend'
+
+# 2024-10-05 12:49:28.359224
++frontend directory is not created
+
+# 2024-10-05 12:50:38.213423
++frontend directory is not created. Create it if does not exist and then move the files
+
+# 2024-10-05 12:51:47.011633
++I have created frontend directory. Mode the files now

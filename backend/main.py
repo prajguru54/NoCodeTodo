@@ -8,7 +8,7 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # CORS configuration (Allow requests from your frontend)
-origins = ["http://localhost:5500"]  # Replace with your frontend URL if different
+origins = ["*"]  # Replace with your frontend URL if different
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -34,7 +34,13 @@ class Todo(Base):
 Base.metadata.create_all(bind=engine)
 
 
-class TodoModel(BaseModel):
+class TodoResponse(BaseModel):
+    id: int
+    text: str
+    completed: bool = False
+
+
+class TodoInput(BaseModel):
     text: str
     completed: bool = False
 
@@ -52,8 +58,8 @@ def get_db():
         db.close()
 
 
-@app.post("/todos/", response_model=TodoModel)
-def create_todo(todo: TodoModel, db: SessionLocal = Depends(get_db)):
+@app.post("/todos/", response_model=TodoResponse)
+def create_todo(todo: TodoInput, db: SessionLocal = Depends(get_db)):
     db_todo = Todo(text=todo.text, completed=todo.completed)
     db.add(db_todo)
     db.commit()
@@ -67,7 +73,7 @@ def read_todos(db: SessionLocal = Depends(get_db)):
     return todos
 
 
-@app.get("/todos/{todo_id}", response_model=TodoModel)
+@app.get("/todos/{todo_id}", response_model=TodoResponse)
 def read_todo(todo_id: int, db: SessionLocal = Depends(get_db)):
     todo = db.query(Todo).filter(Todo.id == todo_id).first()
     if todo is None:
@@ -75,7 +81,7 @@ def read_todo(todo_id: int, db: SessionLocal = Depends(get_db)):
     return todo
 
 
-@app.put("/todos/{todo_id}", response_model=TodoModel)
+@app.put("/todos/{todo_id}", response_model=TodoResponse)
 def update_todo(
     todo_id: int, todo: TodoUpdateModel, db: SessionLocal = Depends(get_db)
 ):
