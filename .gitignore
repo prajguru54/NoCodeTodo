@@ -12,3 +12,5 @@ __pycache__/
 .venv/
 venv/
 *.db
+
+frontend/node_modules/
