@@ -36,17 +36,27 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 10px; /* Added margin for better spacing */
+  margin-left: 10px;
 }
 
 .delete-button {
-  background-color: #f44336; /* Red color for delete button */
+  background-color: #f44336;
   color: white;
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 10px; /* Added margin for better spacing */
+  margin-left: auto; /* Align to the right */
+}
+
+.edit-button {
+  background-color: #2196F3; /* Blue color for edit button */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px; /* Added margin for better spacing */
 }
 
 ul {
@@ -61,6 +71,7 @@ li {
   border-radius: 4px;
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Distribute space between items */
 }
 
 li.completed {

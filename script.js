@@ -7,10 +7,18 @@ function addTodo() {
   if (todoText !== '') {
     const newTodoItem = document.createElement('li');
     const deleteButton = document.createElement('button');
+    const editButton = document.createElement('button');
+
     deleteButton.textContent = 'x';
     deleteButton.classList.add('delete-button');
     deleteButton.addEventListener('click', deleteTodo);
+
+    editButton.textContent = '✏️'; // Pencil icon
+    editButton.classList.add('edit-button');
+    editButton.addEventListener('click', editTodo); // Add event listener for edit
+
     newTodoItem.textContent = todoText;
+    newTodoItem.appendChild(editButton);
     newTodoItem.appendChild(deleteButton);
     newTodoItem.addEventListener('click', toggleComplete);
     todoList.appendChild(newTodoItem);
@@ -25,15 +33,26 @@ function deleteTodo(event) {
   saveTodoList();
 }
 
+function editTodo(event) {
+  const todoItem = event.target.parentNode;
+  const todoText = todoItem.textContent.replace('x', '').replace('✏️', '').trim();
+  const newText = prompt("Edit todo:", todoText);
+  if (newText !== null && newText.trim() !== "") {
+    todoItem.textContent = newText;
+    saveTodoList();
+  }
+}
+
+
 function toggleComplete(event) {
-  if (!event.target.classList.contains('delete-button')) { // Prevent toggling on button click
+  if (!event.target.classList.contains('delete-button') && !event.target.classList.contains('edit-button')) {
     event.target.classList.toggle('completed');
     saveTodoList();
   }
 }
 
 function saveTodoList() {
-  const todos = Array.from(todoList.children).map(li => li.textContent.split('x')[0].trim()); //Updated to handle delete button text
+  const todos = Array.from(todoList.children).map(li => li.textContent.replace('x', '').replace('✏️', '').trim());
   localStorage.setItem('todos', JSON.stringify(todos));
 }
 
@@ -44,10 +63,18 @@ function loadTodoList() {
     todos.forEach(todo => {
       const newTodoItem = document.createElement('li');
       const deleteButton = document.createElement('button');
+      const editButton = document.createElement('button');
+
       deleteButton.textContent = 'x';
       deleteButton.classList.add('delete-button');
       deleteButton.addEventListener('click', deleteTodo);
+
+      editButton.textContent = '✏️';
+      editButton.classList.add('edit-button');
+      editButton.addEventListener('click', editTodo);
+
       newTodoItem.textContent = todo;
+      newTodoItem.appendChild(editButton);
       newTodoItem.appendChild(deleteButton);
       newTodoItem.addEventListener('click', toggleComplete);
       todoList.appendChild(newTodoItem);
