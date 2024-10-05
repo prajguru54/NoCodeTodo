@@ -36,6 +36,17 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-left: 10px; /* Added margin for better spacing */
+}
+
+.delete-button {
+  background-color: #f44336; /* Red color for delete button */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px; /* Added margin for better spacing */
 }
 
 ul {
@@ -49,7 +60,6 @@ li {
   margin-bottom: 5px;
   border-radius: 4px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
