@@ -72,10 +72,19 @@ li {
   border-radius: 4px;
   display: flex;
   align-items: center;
-  /* justify-content: flex-end; Removed */
 }
 
 li.completed {
   text-decoration: line-through;
   opacity: 0.5;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+}
+
+.todo-text {
+    flex-grow: 1; /* Allow text to take up available space */
+    margin-right: 10px; /* Add some spacing between text and buttons */
 }
